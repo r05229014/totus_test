@@ -5,9 +5,10 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
 
-def get_corps(csv_path):
-    '''用description來做, 但我前面把資料從json變成csv了'''
-    df = pd.read_csv(csv_path)
+def get_corps(json_path):
+    '''用description來做'''
+    with open(json_path, 'rb') as f:
+        df = pd.read_json(f)
     corpus = []
     for i, row in df.iterrows():
         corpus.append(row['description'])
