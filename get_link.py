@@ -1,10 +1,6 @@
 import pickle
 import numpy as np 
 import pandas as pd 
-from gensim.parsing.preprocessing import remove_stopwords
-# from sklearn.feature_extraction.text import TfidfVectorizer
-# from sklearn.metrics.pairwise import cosine_similarity
-# from scipy.spatial.distance import cosine
 from numpy import dot
 from numpy.linalg import norm
 
@@ -24,12 +20,12 @@ def get_corps(json_path):
     return corpus
 
 
-def clean_data(texts):
-    '''處理stop words'''
-    cleaned_corpus = []
-    for c in texts:
-        cleaned_corpus.append(remove_stopwords(c))
-    return cleaned_corpus
+# def clean_data(texts):
+#     '''處理stop words'''
+#     cleaned_corpus = []
+#     for c in texts:
+#         cleaned_corpus.append(remove_stopwords(c))
+#     return cleaned_corpus
 
 
 def get_TFIDF(texts, vectorizer):
@@ -75,7 +71,6 @@ if __name__ == '__main__':
         vectorizer = pickle.load(f)
 
     corpus = get_corps(csv_path)
-    cleaned_corpus = clean_data(corpus)
     tfidf = get_TFIDF(cleaned_corpus, vectorizer)
     scores = get_scores(tfidf)
     get_links(len(corpus), scores)
