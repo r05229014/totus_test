@@ -57,12 +57,12 @@ def get_scores(tfidf):
 
 def get_links(corpus_count, scores, max_count=3):
     '''得到前max_count的連結, 1 ---> 2 表示文章是從第1篇連到第2篇'''
-    indexs = np.argsort(scores.flatten())[-1:-max_count-1:-1]
-    
+    indexs = np.argsort(scores.flatten())[-1:-max_count-1:-2]
+    links = []
     for i in indexs:
         s, d = i//corpus_count +1, i%corpus_count
-        print(f'{s} ----> {d}')
-
+        links.append([s,d])
+    return links
 
 
 if __name__ == '__main__':
@@ -73,4 +73,4 @@ if __name__ == '__main__':
     corpus = get_corps(csv_path)
     tfidf = get_TFIDF(corpus, vectorizer)
     scores = get_scores(tfidf)
-    get_links(len(corpus), scores)
+    links = get_links(len(corpus), scores)
