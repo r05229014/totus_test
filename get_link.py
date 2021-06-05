@@ -71,6 +71,6 @@ if __name__ == '__main__':
         vectorizer = pickle.load(f)
 
     corpus = get_corps(csv_path)
-    tfidf = get_TFIDF(cleaned_corpus, vectorizer)
+    tfidf = get_TFIDF(corpus, vectorizer)
     scores = get_scores(tfidf)
     get_links(len(corpus), scores)
