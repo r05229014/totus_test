@@ -3,8 +3,8 @@ import numpy as np
 import pandas as pd 
 from gensim.parsing.preprocessing import remove_stopwords
 # from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.metrics.pairwise import cosine_similarity
-from scipy.spatial.distance import cosine
+# from sklearn.metrics.pairwise import cosine_similarity
+# from scipy.spatial.distance import cosine
 from numpy import dot
 from numpy.linalg import norm
 
