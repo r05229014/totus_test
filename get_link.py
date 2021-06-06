@@ -54,15 +54,32 @@ def get_scores(tfidf):
 #     tfidfs = np.where(tfidfs>0.99, 0, tfidfs).flatten()
 #     return tfidfs
 
-
 def get_links(corpus_count, scores, max_count=3):
-    '''得到前max_count的連結, 1 ---> 2 表示文章是從第1篇連到第2篇'''
-    indexs = np.argsort(scores.flatten())[-1:-max_count-1:-2]
+    scores = scores.flatten()
+    index_corpus = []
+    index_link = []
     links = []
-    for i in indexs:
-        s, d = i//corpus_count +1, i%corpus_count
-        links.append([s,d])
+    for i in range(corpus_count):
+        for j in range(corpus_count):
+            index_corpus.append(i)
+            index_link.append(j)
+
+    df = pd.DataFrame(columns=['scores', 'index_corpus', 'index_link'])
+    df['scores'] = scores
+    df['index_corpus'] = index_corpus
+    df['index_link'] = index_link
+    df = df.sort_values(by='scores', ascending=False).values
+    for i in range(max_count):
+        links.append([df[2*i, 1].astype(int), df[2*i, 2].astype(int)])
     return links
+# def get_links(corpus_count, scores, max_count=3):
+#     '''得到前max_count的連結, 1 ---> 2 表示文章是從第1篇連到第2篇'''
+#     indexs = np.argsort(scores.flatten())[-1:-max_count-1:-2]
+#     links = []
+#     for i in indexs:
+#         s, d = i//corpus_count +1, i%corpus_count
+#         links.append([s,d])
+#     return links
 
 
 if __name__ == '__main__':
